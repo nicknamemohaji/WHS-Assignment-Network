@@ -22,6 +22,7 @@ int main(const int argc, const char **argv)
     // start sniffer
     whs_sniff::g_running = 1;
     whs_sniff::Sniff sniffer(argv[1], "tcp[tcpflags] & (tcp-push) != 0", &whs_sniff_tcpdump::hook);
+    if (sniffer.HasError())  return(1);
     std::cout << "Starting whs_sniff" << std::endl;
     while (whs_sniff::g_running && !sniffer.HasError()) {
         sniffer.Loop();
